@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>friends-app</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/index.js" type="module"></script>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="icon-menu">
+            <img src="img/menu-ham-icon.png" alt="menu_icon">
+        </div>
+        <h1>Friends App</h1>
+    </header>
+    <div class="app">
+        <div class="function_menu">
+            <div class="function_title">Search friends</div>
+            <div class="icon-close">
+                <img src="img/close-btn.png" alt="close_icon">
+            </div>
+            <form class="search">
+                <input class="search_friends" type="search" name="search_friends" id="search_friends" placeholder="Name friends">
+            </form>
+            <div class="function_title">Sort friends</div>
+            <div class="sorts">
+                <div class="sorts_by sort_by_age">Sort by Age</div>
+                <input type="hidden" id="sort_by_age" name="sort_by_age" value="date">
+                <div class="sorts_list sorts_list_age" id="filterSort">
+                    <label class="sorts_options" data-sort="up">
+                        Age from 0 to 99
+                    </label>
+                    <label class="sorts_options" data-sort="down">
+                        Age from 99 to 0
+                    </label>
+                </div>
+            </div>
+            <div class="sorts">
+                <div class="sorts_by sort_by_name">Sort by Name</div>
+                <input type="hidden" id="sort_by_name" name="sort_by_name" value="date">
+                <div class="sorts_list sorts_list_name" id="filterSort1">
+                    <label class="sorts_options" data-sort="fromA">
+                        Name from A to Z
+                    </label>
+                    <label class="sorts_options" data-sort="fromZ">
+                        Name from Z to A
+                    </label>
+                </div>
+            </div>
+            <div class="filters">
+                <div class="function_title">Filter by gender</div>
+                <form class="filters_gender">
+                    <input type="hidden" id="sort_by_gender" name="sort_by_gender" value="date">
+                    <div class="filters_list filters_gender" id="filters_gender">
+                        <label class="filters_label">
+                            <input type="radio" class="gender" name="gender" id="all" value="all" checked/>
+                            <span>all gender</span>
+                        </label>
+                        <label class="filters_label">
+                            <input type="radio" class="gender" name="gender" id="male" value="male" />
+                            <span>male</span>
+                        </label>
+                        <label class="filters_label">
+                            <input type="radio" class="gender" name="gender" id="female" value="female" />
+                            <span>female</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <button class="reset_button">Reset</button>
+        </div>
+        <main id="main" class="main"></main>
+    </div>
+</div>
+</body>
+</html>
+
+
