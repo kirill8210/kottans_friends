@@ -66,14 +66,14 @@ sortListAge.addEventListener('click', ({target}) => {
     if (target.classList.contains('sorts_options')) {
         sortAge.textContent = target.textContent;
         sortIdAge.value = target.dataset.sort;
-        filterByGender();
         sortName.textContent = 'Sort by Name';
+        sortIdName.value = 'date';
         if (genders === 'all') {
             const newData = sortByAge();
             renderCards(newData);
         } else {
-            const newData = sortByAge();
-            renderCards(newData.filter(data => data.gender === genders));
+            const newData = sortByAge().filter(data => data.gender === genders);
+            renderCards(newData);
         }
         removeMenu();
         sortListAge.classList.remove('sorts_list_active');
@@ -84,7 +84,7 @@ sortName.addEventListener('click', () => {
     sortListName.classList.toggle('sorts_list_active');
     sortListAge.classList.remove('sorts_list_active');
 });
-
+/*
 sortListName.addEventListener('click', ({target}) => {
     if (target.classList.contains('sorts_options')) {
         sortName.textContent = target.textContent;
@@ -102,17 +102,36 @@ sortListName.addEventListener('click', ({target}) => {
         sortListName.classList.remove('sorts_list_active');
     }
 });
+*/
+sortListName.addEventListener('click', ({target}) => {
+    if (target.classList.contains('sorts_options')) {
+        sortName.textContent = target.textContent;
+        sortIdName.value = target.dataset.sort;
+        sortAge.textContent = 'Sort by Age';
+        sortIdAge.value = 'date';
+        if (genders === 'all') {
+            const newData = sortByAge();
+            renderCards(newData);
+        } else {
+            const newData = sortByName().filter(data => data.gender === genders);
+            renderCards(newData);
+        }
+
+        removeMenu();
+        sortListName.classList.remove('sorts_list_active');
+    }
+});
 
 filterIdGender.addEventListener('click', ({target}) => {
     if (target.classList.contains('gender')) {
         genders = target.value;
         const newData = filterByGender();
-        inputSearch.value = '';
+        //inputSearch.value = '';
         renderCards(newData);
         removeMenu();
     }
 });
-
+/*
 const sortByAge = () => {
     switch (sortIdAge.value) {
         case 'up':
@@ -125,50 +144,121 @@ const sortByAge = () => {
             return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
     }
 };
-
-const sortByName = () => {
-    switch (sortIdName.value) {
-        case 'fromA':
-            return data.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
-            break;
-        case 'fromZ':
-            return data.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
-            break;
-        default:
-            return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+*/
+const sortByAge = () => {
+    if (inputSearch.value.length > 0) {
+        const fByG = filterByGender();
+        const sByF = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+        switch (sortIdAge.value) {
+            case 'up':
+                return sByF.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
+                break;
+            case 'down':
+                return sByF.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
+                break;
+            default:
+                return sByF.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+        }
+    } else {
+        switch (sortIdAge.value) {
+            case 'up':
+                return data.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
+                break;
+            case 'down':
+                return data.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
+                break;
+            default:
+                return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+        }
     }
 };
 
+const sortByName = () => {
+    if (inputSearch.value.length > 0) {
+        const fByG = filterByGender();
+        const sByF = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+        switch (sortIdName.value) {
+            case 'fromA':
+                return sByF.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
+                break;
+            case 'fromZ':
+                return sByF.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
+                break;
+            default:
+                return sByF.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+        }
+    } else {
+        switch (sortIdName.value) {
+            case 'fromA':
+                return data.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
+                break;
+            case 'fromZ':
+                return data.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
+                break;
+            default:
+                return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+        }
+    }
+
+};
+
 const filterByGender = () => {
-    switch (genders) {
-        case 'male':
-            return data.filter(data => data.gender === 'male');
-            break;
-        case 'female':
-            return data.filter(data => data.gender === 'female');
-            break;
-        default:
-            return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+    if (inputSearch.value.length > 0) {
+        const sByF = data.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+        switch (genders) {
+            case 'male':
+                return sByF.filter(data => data.gender === 'male');
+                break;
+            case 'female':
+                return sByF.filter(data => data.gender === 'female');
+                break;
+            default:
+                return sByF
+        }
+    } else {
+        switch (genders) {
+            case 'male':
+                return data.filter(data => data.gender === 'male');
+                break;
+            case 'female':
+                return data.filter(data => data.gender === 'female');
+                break;
+            default:
+                return data
+        }
     }
 };
 
 const searchName = () => {
     inputSearch.addEventListener('input', e => {
         e.preventDefault();
-        const searchOfName = data.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
-        inputAll.checked = true;
-        filterByGender();
-        if(inputSearch.value.length > 0) {
-            removeMenu();
+        if (inputSearch.value.length !== 0) {
+            console.log(sortIdAge.value)
+            const sortAge = sortByAge(data);
+            console.log(sortAge.map(e=>e.name.first))
+            const sortName = sortByName(sortAge);
+            const fByG = filterByGender(sortName);
+            const searchOfName = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+            renderCards(searchOfName);
+        } else {
+            console.log(sortIdAge.value)
+            const sortAge = sortByAge();
+            console.log(sortAge);
+            const sortName = sortByName(sortAge);
+            const filterGender = filterByGender(sortName);
+            app.textContent = '';
+            renderCards(filterGender);
         }
-        renderCards(searchOfName);
+
     });
 };
 
 const resetAll = () => {
     data = [...response.results];
     sortAge.textContent = 'Sort by Age';
+    sortIdAge.value = 'date';
     sortName.textContent = 'Sort by Name';
+    sortIdName.value = 'date';
     genders = 'all';
     filterByGender();
     inputAll.checked = true;
@@ -205,7 +295,11 @@ init();
 
 
 
-
+// -------- mobile
+// if(inputSearch.value.length > 0) {
+//     removeMenu();
+// }
+// ----------
 
 
 
