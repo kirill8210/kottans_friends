@@ -273,7 +273,7 @@ h1 {
     width: 40px;
 }
 
-.icon-menu img  {
+.icon-menu_img  {
     width: 30px;
     height: 26px;
     margin-top: 7px;
@@ -283,7 +283,7 @@ h1 {
     width: 30px;
 }
 
-@media screen and (max-width: 1250px)  {
+@media screen and (max-width: 1250px) {
     .main {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -292,28 +292,32 @@ h1 {
     }
 }
 
-@media screen and (max-width: 1100px)  {
-    .main  {
+@media screen and (max-width: 1100px) {
+    .main {
         width: 100%;
     }
 
-    .search_count{
+    .search_count {
         display: flex;
         color: #9ff2ff;
     }
 
-    .count_friends{
+    .count_friends {
         margin-left: 5px;
     }
 
-    .icon-menu  {
+    .icon-menu {
         display: flex;
         position: absolute;
         top: 15px;
         left: 15px;
+        border: none;
+        background-color: inherit;
+        width: 30px;
+        height: 40px;
     }
 
-    .function_menu  {
+    .function_menu {
         position: fixed;
         left: -100%;
         top: 0;
@@ -322,7 +326,7 @@ h1 {
         padding-top: 70px;
     }
 
-    .icon-close  {
+    .icon-close {
         position: absolute;
         top: 0;
         right: 0;

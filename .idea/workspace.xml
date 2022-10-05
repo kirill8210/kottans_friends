@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/getData.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/getData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +25,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kottans_home/frontend-2022-homeworks" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -60,7 +59,7 @@
       <workItem from="1664885752844" duration="15013000" />
       <workItem from="1664908542567" duration="596000" />
       <workItem from="1664909156294" duration="133000" />
-      <workItem from="1664952166759" duration="10766000" />
+      <workItem from="1664952166759" duration="14151000" />
     </task>
     <servers />
   </component>
@@ -68,10 +67,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1213" y="277" key="FileChooserDialogImpl" timestamp="1664885749169">
+    <state x="1213" y="277" key="FileChooserDialogImpl" timestamp="1664964007879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1213" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1664885749169" />
+    <state x="1213" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1664964007879" />
     <state x="1298" y="415" key="Github.ShareDialog" timestamp="1664570452838">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
