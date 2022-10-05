@@ -189,6 +189,10 @@ h1 {
     color: #9ff2ff;
 }
 
+.search_count{
+    display: none;
+}
+
 .search_friends {
     width: 178px;
     height: 38px;
@@ -272,7 +276,7 @@ h1 {
 .icon-menu img  {
     width: 30px;
     height: 26px;
-    margin-top: 2px;
+    margin-top: 7px;
 }
 
 .icon-close {
@@ -293,6 +297,15 @@ h1 {
         width: 100%;
     }
 
+    .search_count{
+        display: flex;
+        color: #9ff2ff;
+    }
+
+    .count_friends{
+        margin-left: 5px;
+    }
+
     .icon-menu  {
         display: flex;
         position: absolute;
@@ -304,7 +317,7 @@ h1 {
         position: fixed;
         left: -100%;
         top: 0;
-        z-index: 20;
+        z-index: 50;
         transition: left 0.5s ease-in-out;
         padding-top: 70px;
     }

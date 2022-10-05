@@ -67,7 +67,6 @@ sortListAge.addEventListener('click', ({target}) => {
         sortAge.textContent = target.textContent;
         sortIdAge.value = target.dataset.sort;
         sortName.textContent = 'Sort by Name';
-        //sortIdName.value = 'date';
         if (genders === 'all') {
             const newData = sortByAge();
             renderCards(newData);
@@ -75,7 +74,9 @@ sortListAge.addEventListener('click', ({target}) => {
             const newData = sortByAge().filter(data => data.gender === genders);
             renderCards(newData);
         }
-        removeMenu();
+        setTimeout(() => {
+            removeMenu();
+        }, 500);
         sortListAge.classList.remove('sorts_list_active');
     }
 });
@@ -84,32 +85,13 @@ sortName.addEventListener('click', () => {
     sortListName.classList.toggle('sorts_list_active');
     sortListAge.classList.remove('sorts_list_active');
 });
-/*
-sortListName.addEventListener('click', ({target}) => {
-    if (target.classList.contains('sorts_options')) {
-        sortName.textContent = target.textContent;
-        sortIdName.value = target.dataset.sort;
-        filterByGender();
-        sortAge.textContent = 'Sort by Age';
-        if (genders === 'all') {
-            const newData = sortByName();
-            renderCards(newData);
-        } else {
-            const newData = sortByName();
-            renderCards(newData.filter(data => data.gender === genders));
-        }
-        removeMenu();
-        sortListName.classList.remove('sorts_list_active');
-    }
-});
-*/
+
 sortListName.addEventListener('click', ({target}) => {
     if (target.classList.contains('sorts_options')) {
         sortName.textContent = target.textContent;
         sortIdName.value = target.dataset.sort;
         console.log(sortIdName.value);
         sortAge.textContent = 'Sort by Age';
-        //sortIdAge.value = 'date';
         if (genders === 'all') {
             const newData = sortByName();
             renderCards(newData);
@@ -117,8 +99,9 @@ sortListName.addEventListener('click', ({target}) => {
             const newData = sortByName().filter(data => data.gender === genders);
             renderCards(newData);
         }
-
-        removeMenu();
+        setTimeout(() => {
+            removeMenu();
+        }, 500);
         sortListName.classList.remove('sorts_list_active');
     }
 });
@@ -127,31 +110,17 @@ filterIdGender.addEventListener('click', ({target}) => {
     if (target.classList.contains('gender')) {
         genders = target.value;
         const newData = filterByGender();
-        //inputSearch.value = '';
         renderCards(newData);
-        removeMenu();
+        setTimeout(() => {
+            removeMenu();
+        }, 500);
     }
 });
-/*
-const sortByAge = () => {
-    switch (sortIdAge.value) {
-        case 'up':
-            return data.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
-            break;
-        case 'down':
-            return data.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
-            break;
-        default:
-            return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
-    }
-};
-*/
+
 const sortByAge = () => {
     if (inputSearch.value.length !== 0) {
-        const fByG = filterByGender();
-        console.log(fByG.map(e=>e.dob.age))
+        const fByG = filterByGender()
         const sByF = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
-        console.log(sByF.map(e=>e.dob.age))
         switch (sortIdAge.value) {
             case 'up':
                 return sByF.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
@@ -171,7 +140,6 @@ const sortByAge = () => {
                 return data.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
                 break;
             default:
-                //return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
                 return data;
         }
     }
@@ -192,7 +160,6 @@ const sortByName = () => {
                 return sByF.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
         }
     } else {
-        //console.log(sortIdName.value);
         switch (sortIdName.value) {
             case 'fromA':
                 return data.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
@@ -234,35 +201,35 @@ const filterByGender = () => {
     }
 };
 
+const countFriends = document.querySelector('.count_friends');
+countFriends.textContent = '0';
+
 const searchName = () => {
     inputSearch.addEventListener('input', e => {
         e.preventDefault();
         if (inputSearch.value.length !== 0) {
-            console.log(sortIdAge.value)
             const sortAge = sortByAge();
-            console.log(sortAge.map(e=>e.dob.age))
-            // const sortName = sortByName(sortAge);
             const fByG = filterByGender(sortAge);
             const searchOfName = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+            const countAll = searchOfName.map(e => e.name).length;
+            countFriends.textContent = `${countAll}`;
             renderCards(searchOfName);
+            if(inputSearch.value.length > 0) {
+                setTimeout(() => {
+                    removeMenu();
+                }, 1000);
+            }
         } else {
+            countFriends.textContent = '0';
             if (genders === 'all') {
                 const sortAge = sortByAge();
-                console.log(sortAge.map(e=>e.dob.age));
                 const sortName = sortByName(sortAge);
                 renderCards(sortName);
             } else {
                 const sortAge = sortByAge();
-                console.log(sortAge.map(e=>e.dob.age));
                 const sortName = sortByName(sortAge).filter(data => data.gender === genders);
                 renderCards(sortName);
             }
-            // const sortAge = sortByAge();
-            // console.log(sortAge.map(e=>e.dob.age));
-            // const sortName = sortByName(sortAge);
-
-            // app.textContent = '';
-            // renderCards(sortName);
         }
 
     });
@@ -278,7 +245,6 @@ const resetAll = () => {
     filterByGender();
     inputAll.checked = true;
     inputSearch.value = '';
-    removeMenu();
     renderCards(data)
 };
 
@@ -307,51 +273,3 @@ const init = async () => {
 
 removeMenu();
 init();
-
-
-
-// -------- mobile
-// if(inputSearch.value.length > 0) {
-//     removeMenu();
-// }
-// ----------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   formSearch.addEventListener('submit', e => {
-       e.preventDefault();
-
-       console.log(formSearch.search.value);
-       searchFriends(formSearch.search.value);
-       // formSearch.reset();
-
-       const textSearch = formSearch.search.value;
-       if (textSearch.length > 1){
-           // formSearch.search.style.borderColor = '';
-           // const search = searchName(data);
-           // const cards = search.map(createCard);
-           // app.append(...cards);
-           // console.log(data);
-       } else {
-           // formSearch.search.style.borderColor = 'red'
-
-       });
-
-   };
-
-    */
