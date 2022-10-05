@@ -67,7 +67,7 @@ sortListAge.addEventListener('click', ({target}) => {
         sortAge.textContent = target.textContent;
         sortIdAge.value = target.dataset.sort;
         sortName.textContent = 'Sort by Name';
-        sortIdName.value = 'date';
+        //sortIdName.value = 'date';
         if (genders === 'all') {
             const newData = sortByAge();
             renderCards(newData);
@@ -107,10 +107,11 @@ sortListName.addEventListener('click', ({target}) => {
     if (target.classList.contains('sorts_options')) {
         sortName.textContent = target.textContent;
         sortIdName.value = target.dataset.sort;
+        console.log(sortIdName.value);
         sortAge.textContent = 'Sort by Age';
-        sortIdAge.value = 'date';
+        //sortIdAge.value = 'date';
         if (genders === 'all') {
-            const newData = sortByAge();
+            const newData = sortByName();
             renderCards(newData);
         } else {
             const newData = sortByName().filter(data => data.gender === genders);
@@ -146,9 +147,11 @@ const sortByAge = () => {
 };
 */
 const sortByAge = () => {
-    if (inputSearch.value.length > 0) {
+    if (inputSearch.value.length !== 0) {
         const fByG = filterByGender();
+        console.log(fByG.map(e=>e.dob.age))
         const sByF = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
+        console.log(sByF.map(e=>e.dob.age))
         switch (sortIdAge.value) {
             case 'up':
                 return sByF.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
@@ -168,13 +171,14 @@ const sortByAge = () => {
                 return data.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
                 break;
             default:
-                return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+                //return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+                return data;
         }
     }
 };
 
 const sortByName = () => {
-    if (inputSearch.value.length > 0) {
+    if (inputSearch.value.length !== 0) {
         const fByG = filterByGender();
         const sByF = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
         switch (sortIdName.value) {
@@ -188,6 +192,7 @@ const sortByName = () => {
                 return sByF.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
         }
     } else {
+        //console.log(sortIdName.value);
         switch (sortIdName.value) {
             case 'fromA':
                 return data.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
@@ -196,7 +201,7 @@ const sortByName = () => {
                 return data.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
                 break;
             default:
-                return data.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1);
+                return data
         }
     }
 
@@ -234,20 +239,30 @@ const searchName = () => {
         e.preventDefault();
         if (inputSearch.value.length !== 0) {
             console.log(sortIdAge.value)
-            const sortAge = sortByAge(data);
-            console.log(sortAge.map(e=>e.name.first))
-            const sortName = sortByName(sortAge);
-            const fByG = filterByGender(sortName);
+            const sortAge = sortByAge();
+            console.log(sortAge.map(e=>e.dob.age))
+            // const sortName = sortByName(sortAge);
+            const fByG = filterByGender(sortAge);
             const searchOfName = fByG.filter(data => data.name.first.toLowerCase().includes(inputSearch.value.toLowerCase()));
             renderCards(searchOfName);
         } else {
-            console.log(sortIdAge.value)
-            const sortAge = sortByAge();
-            console.log(sortAge);
-            const sortName = sortByName(sortAge);
-            const filterGender = filterByGender(sortName);
-            app.textContent = '';
-            renderCards(filterGender);
+            if (genders === 'all') {
+                const sortAge = sortByAge();
+                console.log(sortAge.map(e=>e.dob.age));
+                const sortName = sortByName(sortAge);
+                renderCards(sortName);
+            } else {
+                const sortAge = sortByAge();
+                console.log(sortAge.map(e=>e.dob.age));
+                const sortName = sortByName(sortAge).filter(data => data.gender === genders);
+                renderCards(sortName);
+            }
+            // const sortAge = sortByAge();
+            // console.log(sortAge.map(e=>e.dob.age));
+            // const sortName = sortByName(sortAge);
+
+            // app.textContent = '';
+            // renderCards(sortName);
         }
 
     });
