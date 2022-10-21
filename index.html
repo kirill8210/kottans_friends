@@ -15,30 +15,29 @@
         <button class="icon-menu">
             <img class="icon-menu_img" src="img/menu-ham-icon.png" alt="">
         </button>
-        <a href="index.html">
-            <h1>Friends App</h1>
+        <a class="logo_app" href="index.html">
+            <h1 class="title_app">Friends App</h1>
         </a>
     </header>
     <div class="app">
-        <div class="function_menu">
+        <form class="function_menu">
             <div class="function_title">Search friends</div>
 
             <div class="icon-close">
                 <img src="img/close-btn.png" alt="close_icon">
             </div>
-            <form class="search">
-                <div class="search_count">amount search count: <span class="count_friends"></span></div>
+            <div class="search">
                 <input class="search_friends" type="search" name="search_friends" id="search_friends" placeholder="Name friends">
-            </form>
+            </div>
             <div class="function_title">Sort friends</div>
             <div class="sorts">
                 <div class="sorts_by sort_by_age">Sort by Age</div>
                 <input type="hidden" id="sort_by_age" name="sort_by_age" value="date">
                 <div class="sorts_list sorts_list_age" id="filterSort">
-                    <label class="sorts_options" data-sort="up">
+                    <label class="sorts_options sorts_age" data-sort="up">
                         Age from 0 to 99
                     </label>
-                    <label class="sorts_options" data-sort="down">
+                    <label class="sorts_options sorts_age" data-sort="down">
                         Age from 99 to 0
                     </label>
                 </div>
@@ -47,17 +46,17 @@
                 <div class="sorts_by sort_by_name">Sort by Name</div>
                 <input type="hidden" id="sort_by_name" name="sort_by_name" value="date">
                 <div class="sorts_list sorts_list_name" id="filterSort1">
-                    <label class="sorts_options" data-sort="fromA">
+                    <label class="sorts_options sorts_name" data-sort="fromA">
                         Name from A to Z
                     </label>
-                    <label class="sorts_options" data-sort="fromZ">
+                    <label class="sorts_options sorts_name" data-sort="fromZ">
                         Name from Z to A
                     </label>
                 </div>
             </div>
+            <div class="function_title">Filter by gender</div>
             <div class="filters">
-                <div class="function_title">Filter by gender</div>
-                <form class="filters_gender">
+                <div class="filters_gender">
                     <input type="hidden" id="sort_by_gender" name="sort_by_gender" value="date">
                     <div class="filters_list filters_gender" id="filters_gender">
                         <label class="filters_label">
@@ -73,10 +72,11 @@
                             <span>female</span>
                         </label>
                     </div>
-                </form>
+                </div>
             </div>
-            <button class="reset_button">Reset</button>
-        </div>
+            <button class="btn apply_btn">Apply (<span class="count_friends"></span>)</button>
+            <input type="reset" class="btn reset_btn" value="Reset">
+        </form>
         <main id="main" class="main"></main>
     </div>
 </div>
