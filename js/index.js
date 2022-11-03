@@ -3,25 +3,14 @@ import removeMenu from './mobile.js';
 import preparePhoneNumber from './preparePhoneNumber.js';
 
 const app = document.querySelector('.main');
-const functionMenu = document.querySelector('.function_menu');
 const countFriends = document.querySelector('.count_friends');
 
-const sortAge = document.querySelector('.sort_by_age');
-const sortListAge = document.querySelector('.sorts_list_age');
-const sortIdAge = document.querySelector('#sort_by_age');
-const sortName = document.querySelector('.sort_by_name');
-const sortListName = document.querySelector('.sorts_list_name');
-const sortIdName = document.querySelector('#sort_by_name');
 
-const inputSearch = document.querySelector('#search_friends');
 const resetBtn = document.querySelector('.reset_btn');
 const applyBtn = document.querySelector('.apply_btn');
 
-let sortAgeInput = sortIdAge.value;
-let sortNameInput = sortIdName.value;
-let genders = Array.from(document.getElementsByName("gender")).find(r => r.checked).value;
+let response = [];
 let users = [];
-let allFilters = [];
 
 const createCard = ({ name, gender, email, phone, picture, dob }) => {
     const card = document.createElement('article');
@@ -48,44 +37,20 @@ const createCard = ({ name, gender, email, phone, picture, dob }) => {
     return card;
 };
 
-sortAge.addEventListener('click', () => {
-    sortListAge.classList.toggle('sorts_list_active');
-    sortListName.classList.remove('sorts_list_active');
-});
+const functionForm = document.querySelector('#function_menu');
 
-sortName.addEventListener('click', () => {
-    sortListName.classList.toggle('sorts_list_active');
-    sortListAge.classList.remove('sorts_list_active');
-});
+let getAge = 'date1';
+let getName = 'date2';
+let sortOnGender = 'all';
 
-functionMenu.addEventListener('click', ({target}) => {
-    if (target.classList.contains('sorts_age')) {
-        sortAge.textContent = target.textContent;
-        sortAgeInput = target.dataset.sort;
-        sortName.textContent = 'Sort by Name';
-        sortNameInput = 'date';
-        sortListAge.classList.remove('sorts_list_active');
-
-        renderCards();
-    }
-    if (target.classList.contains('sorts_name')) {
-        sortName.textContent = target.textContent;
-        sortNameInput = target.dataset.sort;
-        sortAge.textContent = 'Sort by Age';
-        sortAgeInput = 'date';
-        sortListName.classList.remove('sorts_list_active');
-
-        renderCards();
-    }
-    if (target.classList.contains('gender')) {
-        genders = target.value;
-
-        renderCards();
-    }
+functionForm.addEventListener('input', () => {
+    getAge = functionForm.sort_by_age.value;
+    getName = functionForm.sort_by_name.value;
+    renderUsers();
 });
 
 const sortByAge = (users) => {
-    switch (sortAgeInput) {
+    switch (getAge) {
         case 'up':
             return users.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
             break;
@@ -98,7 +63,7 @@ const sortByAge = (users) => {
 };
 
 const sortByName = (users) => {
-    switch (sortNameInput) {
+    switch (getName) {
         case 'fromA':
             return users.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
             break;
@@ -111,7 +76,8 @@ const sortByName = (users) => {
 };
 
 const filterByGender = (users) => {
-    switch (genders) {
+    sortOnGender = functionForm.gender.value;
+    switch (sortOnGender) {
         case 'male':
             return users.filter(data => data.gender === 'male');
             break;
@@ -124,6 +90,7 @@ const filterByGender = (users) => {
 };
 
 const searchName = (users) => {
+    const inputSearch = document.querySelector('#search_friends');
     let searchInputFr = inputSearch.value;
     if (searchInputFr.length !== 0) {
         return users.filter(users =>
@@ -134,25 +101,20 @@ const searchName = (users) => {
     }
 };
 
-inputSearch.addEventListener('input', e => {
-    e.preventDefault();
-
-    renderCards();
-});
-
-const renderCards = () => {
-    allFilters = users;
+const renderUsers = () => {
+    const allFilters = users;
     const searchFriends = searchName(allFilters);
     const filterGender = filterByGender(searchFriends);
     const sortAge = sortByAge(filterGender);
     const sortName = sortByName(sortAge);
 
-    render(sortName);
+    renderCards(sortName);
 };
 
-const render = (users) => {
+const renderCards = (users) => {
     const countAllUsers = users.map(e => e.name.first).length;
     countFriends.textContent = `${countAllUsers}`;
+
     app.textContent = '';
     const cards = users.map(createCard);
     app.append(...cards);
@@ -164,18 +126,13 @@ applyBtn.addEventListener('click', e => {
 });
 
 resetBtn.addEventListener('click', () => {
-    sortAge.textContent = 'Sort by Age';
-    sortName.textContent = 'Sort by Name';
-    render(users);
-    genders = 'all';
-    sortAgeInput = 'date';
-    sortNameInput = 'date';
+    renderCards([...response.results]);
 });
 
 const init = async () => {
-    const response = await getUsers();
+    response = await getUsers();
     users = [...response.results];
-    renderCards();
+    renderUsers();
 };
 
 removeMenu();

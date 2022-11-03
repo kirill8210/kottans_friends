@@ -20,7 +20,7 @@
         </a>
     </header>
     <div class="app">
-        <form class="function_menu">
+        <form class="function_menu" id="function_menu">
             <div class="function_title">Search friends</div>
 
             <div class="icon-close">
@@ -31,28 +31,41 @@
             </div>
             <div class="function_title">Sort friends</div>
             <div class="sorts">
-                <div class="sorts_by sort_by_age">Sort by Age</div>
-                <input type="hidden" id="sort_by_age" name="sort_by_age" value="date">
-                <div class="sorts_list sorts_list_age" id="filterSort">
-                    <label class="sorts_options sorts_age" data-sort="up">
-                        Age from 0 to 99
-                    </label>
-                    <label class="sorts_options sorts_age" data-sort="down">
-                        Age from 99 to 0
-                    </label>
-                </div>
+                <select id="sort_by_age" class="sorts_select" name="sort_by_age">
+                    <option value="date1" selected="selected" id="options_value">Sort by Age</option>
+                    <option value="up">Age from 0 to 99</option>
+                    <option value="down">Age from 99 to 0</option>
+                </select>
+<!--                <div class="sorts_by sort_by_age">Sort by Age</div>-->
+<!--                <input type="hidden" id="sort_by_age" name="sort_by_age" value="date">-->
+<!--                <div class="sorts_list sorts_list_age" id="filterSort">-->
+<!--                    <label class="sorts_options sorts_age" data-sort="up">-->
+<!--                        Age from 0 to 99-->
+<!--                    </label>-->
+<!--                    <label class="sorts_options sorts_age" data-sort="down">-->
+<!--                        Age from 99 to 0-->
+<!--                    </label>-->
+<!--                </div>-->
+
             </div>
             <div class="sorts">
-                <div class="sorts_by sort_by_name">Sort by Name</div>
-                <input type="hidden" id="sort_by_name" name="sort_by_name" value="date">
-                <div class="sorts_list sorts_list_name" id="filterSort1">
-                    <label class="sorts_options sorts_name" data-sort="fromA">
-                        Name from A to Z
-                    </label>
-                    <label class="sorts_options sorts_name" data-sort="fromZ">
-                        Name from Z to A
-                    </label>
-                </div>
+
+                <select id="sort_by_name" class="sorts_select" name="sort_by_name">
+                    <option value="date2" selected="selected">Sort by Name</option>
+                    <option value="fromA">Name from A to Z</option>
+                    <option value="fromZ">Name from Z to A</option>
+                </select>
+
+<!--                <div class="sorts_by sort_by_name">Sort by Name</div>-->
+<!--                <input type="hidden" id="sort_by_name" name="sort_by_name" value="date">-->
+<!--                <div class="sorts_list sorts_list_name" id="filterSort1">-->
+<!--                    <label class="sorts_options sorts_name" data-sort="fromA">-->
+<!--                        Name from A to Z-->
+<!--                    </label>-->
+<!--                    <label class="sorts_options sorts_name" data-sort="fromZ">-->
+<!--                        Name from Z to A-->
+<!--                    </label>-->
+<!--                </div>-->
             </div>
             <div class="function_title">Filter by gender</div>
             <div class="filters">
@@ -75,7 +88,7 @@
                 </div>
             </div>
             <button class="btn apply_btn">Apply (<span class="count_friends"></span>)</button>
-            <input type="reset" class="btn reset_btn" value="Reset">
+            <button type="reset" class="btn reset_btn" id="reset_btn" from="function_menu">Reset</button>
         </form>
         <main id="main" class="main"></main>
     </div>

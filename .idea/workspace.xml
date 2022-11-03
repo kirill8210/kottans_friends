@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99a15287-07ef-4258-a6f5-8bc64087f7aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/js/preparePhoneNumber.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/getData.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/getData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +67,13 @@
       <workItem from="1666112594487" duration="610000" />
       <workItem from="1666163707854" duration="28482000" />
       <workItem from="1666283145692" duration="18544000" />
-      <workItem from="1666339245079" duration="17533000" />
+      <workItem from="1666339245079" duration="17939000" />
+      <workItem from="1666366042719" duration="860000" />
+      <workItem from="1666634446752" duration="40000" />
+      <workItem from="1666977833773" duration="7054000" />
+      <workItem from="1667222286425" duration="20570000" />
+      <workItem from="1667382019981" duration="22839000" />
+      <workItem from="1667463564695" duration="11444000" />
     </task>
     <servers />
   </component>
@@ -85,10 +89,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1174" y="316" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1666164233247" />
-    <state x="1213" y="277" key="FileChooserDialogImpl" timestamp="1665767753266">
+    <state x="1213" y="277" key="FileChooserDialogImpl" timestamp="1666634486545">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1213" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1665767753266" />
+    <state x="1213" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1666634486545" />
     <state x="1298" y="415" key="Github.ShareDialog" timestamp="1664570452838">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

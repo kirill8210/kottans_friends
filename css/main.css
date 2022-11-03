@@ -213,6 +213,25 @@ h1, h2, h3, p {
     margin-bottom: 15px;
 }
 
+.sorts_select{
+    width: 178px;
+    font-size: 18px;
+    line-height: 18px;
+    background-color: #9ff2ff;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    padding: 7px 15px;
+}
+
+.sorts_select:focus-visible{
+    outline: none;
+}
+
+.sorts_select option{
+    font-size: 16px;
+    line-height: 16px;
+}
+
 .sorts_by {
     width: 178px;
     font-size: 18px;
