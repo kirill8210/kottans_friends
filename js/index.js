@@ -3,12 +3,13 @@ import removeMenu from './mobile.js';
 import preparePhoneNumber from './preparePhoneNumber.js';
 
 const app = document.querySelector('.main');
+const functionForm = document.querySelector('#function_menu');
 const countFriends = document.querySelector('.count_friends');
 
-
 const resetBtn = document.querySelector('.reset_btn');
-const applyBtn = document.querySelector('.apply_btn');
 
+let selectSortsUser = 'default';
+let sortOnGender = 'all';
 let response = [];
 let users = [];
 
@@ -37,41 +38,22 @@ const createCard = ({ name, gender, email, phone, picture, dob }) => {
     return card;
 };
 
-const functionForm = document.querySelector('#function_menu');
-
-let getAge = 'date1';
-let getName = 'date2';
-let sortOnGender = 'all';
-
-functionForm.addEventListener('input', () => {
-    getAge = functionForm.sort_by_age.value;
-    getName = functionForm.sort_by_name.value;
-    renderUsers();
-});
-
-const sortByAge = (users) => {
-    switch (getAge) {
-        case 'up':
+const sortsUsers = (users) => {
+    switch (selectSortsUser) {
+        case "age_up":
             return users.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
             break;
-        case 'down':
+        case "age_down":
             return users.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
             break;
-        default:
-            return users;
-    }
-};
-
-const sortByName = (users) => {
-    switch (getName) {
-        case 'fromA':
+        case "name_fromA":
             return users.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
             break;
-        case 'fromZ':
+        case "name_fromZ":
             return users.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
             break;
         default:
-            return users
+            return users;
     }
 };
 
@@ -102,13 +84,11 @@ const searchName = (users) => {
 };
 
 const renderUsers = () => {
-    const allFilters = users;
-    const searchFriends = searchName(allFilters);
+    const searchFriends = searchName(users);
     const filterGender = filterByGender(searchFriends);
-    const sortAge = sortByAge(filterGender);
-    const sortName = sortByName(sortAge);
+    const sortUsers = sortsUsers(filterGender);
 
-    renderCards(sortName);
+    renderCards(sortUsers);
 };
 
 const renderCards = (users) => {
@@ -120,9 +100,9 @@ const renderCards = (users) => {
     app.append(...cards);
 };
 
-applyBtn.addEventListener('click', e => {
-    e.preventDefault();
-    removeMenu();
+functionForm.addEventListener('input', () => {
+    selectSortsUser = functionForm.sorts_users.value;
+    renderUsers();
 });
 
 resetBtn.addEventListener('click', () => {
@@ -133,7 +113,7 @@ const init = async () => {
     response = await getUsers();
     users = [...response.results];
     renderUsers();
+    removeMenu();
 };
 
-removeMenu();
 init();
