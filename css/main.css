@@ -282,10 +282,6 @@ h1, h2, h3, p {
     cursor: pointer;
 }
 
-.apply_btn{
-    display: none;
-}
-
 .icon-menu {
     display: none;
 }
