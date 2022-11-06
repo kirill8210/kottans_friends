@@ -5,15 +5,12 @@ import preparePhoneNumber from './preparePhoneNumber.js';
 const app = document.querySelector('.main');
 const functionForm = document.querySelector('#function_menu');
 const countFriends = document.querySelector('.count_friends');
-
 const resetBtn = document.querySelector('.reset_btn');
 
-let selectSortsUser = 'default';
-let sortOnGender = 'all';
 let response = [];
 let users = [];
 
-const createCard = ({ name, gender, email, phone, picture, dob }) => {
+const createdCardUser = ({ name, gender, email, phone, picture, dob }) => {
     const card = document.createElement('article');
     card.classList.add('card');
 
@@ -38,57 +35,56 @@ const createCard = ({ name, gender, email, phone, picture, dob }) => {
     return card;
 };
 
-const sortsUsers = (users) => {
-    switch (selectSortsUser) {
-        case "age_up":
-            return users.sort((a, b) => a.dob.age > b.dob.age ? 1 : -1);
-            break;
-        case "age_down":
-            return users.sort((a, b) => b.dob.age > a.dob.age ? 1 : -1);
-            break;
-        case "name_fromA":
-            return users.sort((a, b) => a.name.first > b.name.first ? 1 : -1);
-            break;
-        case "name_fromZ":
-            return users.sort((a, b) => b.name.first > a.name.first ? 1 : -1);
-            break;
-        default:
-            return users;
+const sortUsers = (users) => {
+    const byField = (a, b) => {
+        return a > b ? 1 : -1;
+    };
+
+    const selectSortsUser = functionForm.sorts_users.value;
+
+    if (selectSortsUser === 'default') {
+        return users;
+    }
+
+    if (selectSortsUser === 'age_up') {
+        return users.sort((a, b) => byField(a.dob.age, b.dob.age));
+    }
+    if (selectSortsUser === 'age_down') {
+        return users.sort((a, b) => byField(b.dob.age, a.dob.age));
+    }
+    if (selectSortsUser === 'name_fromA') {
+        return users.sort((a, b) => byField(a.name.first, b.name.first));
+    }
+    if (selectSortsUser === 'name_fromZ') {
+        return users.sort((a, b) => byField(b.name.first, a.name.first));
     }
 };
 
 const filterByGender = (users) => {
-    sortOnGender = functionForm.gender.value;
-    switch (sortOnGender) {
-        case 'male':
-            return users.filter(data => data.gender === 'male');
-            break;
-        case 'female':
-            return users.filter(data => data.gender === 'female');
-            break;
-        default:
-            return users
+    const gendersValue = functionForm.gender.value;
+    if (gendersValue === 'all') {
+        return users;
     }
+    return users.filter(user => user.gender === gendersValue);
 };
 
-const searchName = (users) => {
-    const inputSearch = document.querySelector('#search_friends');
-    let searchInputFr = inputSearch.value;
-    if (searchInputFr.length !== 0) {
-        return users.filter(users =>
-            (users.name.first).toLowerCase().includes(searchInputFr.toLowerCase())
-            || (users.name.last).toLowerCase().includes(searchInputFr.toLowerCase()));
+const searchByUsers = (users) => {
+    const inputSearchValue = functionForm.search_friends.value;
+    if (inputSearchValue.length !== 0) {
+        return users.filter(user =>
+            (user.name.first + ' ' + user.name.last).toLowerCase().includes(inputSearchValue.toLowerCase()));
     } else {
         return users;
     }
 };
 
 const renderUsers = () => {
-    const searchFriends = searchName(users);
-    const filterGender = filterByGender(searchFriends);
-    const sortUsers = sortsUsers(filterGender);
+    const users = [...response.results];
+    const foundFriends = searchByUsers(users);
+    const filteredByGenderUsers = filterByGender(foundFriends);
+    const sortedUsers = sortUsers(filteredByGenderUsers);
 
-    renderCards(sortUsers);
+    renderCards(sortedUsers);
 };
 
 const renderCards = (users) => {
@@ -96,12 +92,11 @@ const renderCards = (users) => {
     countFriends.textContent = `${countAllUsers}`;
 
     app.textContent = '';
-    const cards = users.map(createCard);
-    app.append(...cards);
+    const cardUsers = users.map(createdCardUser);
+    app.append(...cardUsers);
 };
 
 functionForm.addEventListener('input', () => {
-    selectSortsUser = functionForm.sorts_users.value;
     renderUsers();
 });
 
